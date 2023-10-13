@@ -1,13 +1,26 @@
 import { ViewerData } from "./types";
 
-export const GET_VIEWER_QUERY = `query{viewer{name avtarUrl}}`;
+export const GET_VIEWER_QUERY = `
+  query {
+    viewer {
+      name
+      avatarUrl
+    }
+  }
+  `;
 
-type GetViewerResponse = { data: { viewer: ViewerData } };
+type GetViewerResponse = {
+  data: {
+    viewer: ViewerData;
+  };
+};
 
 export async function getViewer() {
   const response = await fetch(process.env.REACT_APP_GITHUB_URL!, {
     method: "POST",
-    body: JSON.stringify({ query: GET_VIEWER_QUERY }),
+    body: JSON.stringify({
+      query: GET_VIEWER_QUERY,
+    }),
     headers: {
       "Content-Type": "application/json",
       Authorization: `bearer ${process.env.REACT_APP_GITHUB_PAT}`,

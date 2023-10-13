@@ -2,9 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import { getViewer } from "./api/getViewer";
 
 export function Header() {
-  const { isLoading, data } = useQuery(["viewer", getViewer]);
+  const { isLoading, data } = useQuery(["viewer"], getViewer);
   if (isLoading || data === undefined) {
-    return <div>...</div>;
+    return <div className="text-center">No Data</div>;
   }
   return (
     <header className="flex flex-col items-center text-slate-50 bg-slate-900 h-40 p-5">
