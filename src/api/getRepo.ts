@@ -1,27 +1,28 @@
 import { RepoData, SearchCriteria } from "./types";
 
-export const Get_REPO = `
-query GetRepo($org: String!, $repo: Strin!) {
+export const GET_REPO = `
+  query GetRepo($org: String!, $repo: String!) {
     repository(owner: $org, name: $repo) {
-        id
-        name
-        description
-        viewerHasStarred
-        stargazers {
-            totalCount
-        }
+      id
+      name
+      description
+      viewerHasStarred
+      stargazers {
+        totalCount
+      }
     }
-}`;
+  }
+`;
 
 type GetRepoResponse = {
   data: RepoData;
 };
 
 export async function getRepo(searchCriteria: SearchCriteria) {
-  const response = await fetch(process.env.REACT_APPGITHUB_URL!, {
+  const response = await fetch(process.env.REACT_APP_GITHUB_URL!, {
     method: "POST",
     body: JSON.stringify({
-      query: Get_REPO,
+      query: GET_REPO,
       variables: {
         org: searchCriteria.org,
         repo: searchCriteria.repo,
